@@ -1,10 +1,38 @@
-import { CarCard, CustomeFilter, Hero, SearchBar } from "@/components";
+import {
+  CarCard,
+  CustomeFilter,
+  Hero,
+  SearchBar,
+  ShowMore,
+} from "@/components";
+import { fuels, yearsOfProduction } from "@/constant";
+import { SearchParamsProps } from "@/types";
 import { fetchCars } from "@/utils";
+type PageProps = {
+  searchParams?: SearchParamsProps;
+};
+export default async function Home({ searchParams }: PageProps) {
+  const {
+    manufacturer = "",
+    model = "",
+    year = "",
+    fuel = "",
+    limit = 10,
+  } = searchParams || {};
 
-export default async function Home() {
-  const allCars = fetchCars;
+  // Filter the cars
+  const filteredCars = fetchCars.filter(
+    (car) =>
+      (manufacturer
+        ? car.make.toLowerCase().includes(manufacturer.toLowerCase())
+        : true) &&
+      (model ? car.model.toLowerCase().includes(model.toLowerCase()) : true) &&
+      (year ? String(car.year) === String(year) : true) &&
+      (fuel ? car.fuel_type.toLowerCase().includes(fuel.toLowerCase()) : true)
+  );
 
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+  const isDataEmpty =
+    !Array.isArray(filteredCars) || filteredCars.length < 1 || !filteredCars;
   return (
     <main className="overflow-hidden">
       <Hero />
@@ -15,26 +43,31 @@ export default async function Home() {
           <h1 className="text-4xl">Car Catalogue</h1>
           <p>Explore the cars you might like</p>
         </div>
-        <div className="mt-12 w-full flex-between items-center flex-wrap gap-5">
+        <div className="mt-12 w-full flex justify-between items-center flex-wrap gap-5">
           <SearchBar />
 
           <div className="flex justify-start flex-wrap items-center gap-2">
-            <CustomeFilter />
-            <CustomeFilter />
+            <CustomeFilter title="fuel" options={fuels} />
+            <CustomeFilter title="year" options={yearsOfProduction} />
           </div>
         </div>
 
         {!isDataEmpty ? (
           <section>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
-              {allCars.map((car, i) => (
+              {filteredCars.slice(0, Number(limit)).map((car, i) => (
                 <CarCard car={car} key={i} />
               ))}
             </div>
+
+            <ShowMore
+              pageNumber={(searchParams.limit || 10) / 10}
+              isNext={(searchParams.limit || 10) < filteredCars.length}
+            />
           </section>
         ) : (
           <div className="mt-16 flex justify-center items-center flex-col gap-2">
-            <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+            <h2 className="text-black text-2xl font-bold">Oops, no results</h2>
             <p>Sorry</p>
           </div>
         )}

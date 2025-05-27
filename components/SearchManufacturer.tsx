@@ -20,8 +20,8 @@ const SearchManufacturer = ({
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
   return (
-    <div className="flex-1 max-sm:w-full flex justify-start items-center">
-      <Combobox>
+    <div className="flex-1 max-sm:w-full flex justify-start items-center z-50">
+      <Combobox value={manufacturer} onChange={setManufacturer}>
         <div className="relative w-full">
           <Combobox.Button className="absolute top-[14px]">
             <Image
@@ -33,8 +33,8 @@ const SearchManufacturer = ({
             />
           </Combobox.Button>
           <Combobox.Input
-            className="w-full h-[48px] pl-12 p-4 rounded-l-full border border-slate-300 rounded-full max-sm:rounded-full bg-light-white outline-none cursor-pointer text-sm"
-            placeholder="Volkswagam"
+            className="w-full h-[48px] pl-12 p-4 rounded-l-full max-sm:rounded-full bg-light-white outline-none cursor-pointer text-sm"
+            placeholder="Volkswagam..."
             displayValue={(manufacturer: string) => manufacturer}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -45,7 +45,9 @@ const SearchManufacturer = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
             afterLeave={() => setQuery("")}>
-            <Combobox.Options>
+            <Combobox.Options
+              className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg focus:outline-none sm:text-sm"
+              static>
               {filteredManufacturers.map((item) => (
                 <Combobox.Option
                   key={item}

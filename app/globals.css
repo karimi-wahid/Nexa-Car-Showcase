@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #2b59ff;
+  --primary: #f79f61;
   --primary-100: #f5f8ff;
   --secondary-orange: #f79f61;
   --light: rgba(59, 60, 152, 0.03);
