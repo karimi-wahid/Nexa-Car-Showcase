@@ -17,6 +17,21 @@ export const metadata: Metadata = {
   title: "Nexa Cars",
   description:
     "Discover the future of automotive excellence with Nexa Cars, where innovation meets luxury. Explore our cutting-edge vehicles designed for performance and style.",
+  authors: [
+    { name: "Wahidullah Karimi", url: "https://wahidullah-karimi.netlify.app" },
+  ],
+  keywords: [
+    "cars",
+    "automotive",
+    "Nexa",
+    "luxury cars",
+    "car showcase",
+    "electric cars",
+    "hybrid cars",
+    "Karimi",
+    "Wahidullah Karimi",
+  ],
+  creator: "Wahidullah Karimi",
 };
 
 export default function RootLayout({

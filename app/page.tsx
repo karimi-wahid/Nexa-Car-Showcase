@@ -12,16 +12,17 @@ import { SearchParamsProps } from "@/types";
 import { fetchCars } from "@/utils";
 import { Suspense } from "react";
 type PageProps = {
-  searchParams?: SearchParamsProps;
+  searchParams?: Promise<any>;
 };
 export default async function Home({ searchParams }: PageProps) {
+  const params = await searchParams;
   const {
     manufacturer = "",
     model = "",
     year = "",
     fuel = "",
     limit = 10,
-  } = searchParams || {};
+  } = params || {};
 
   // Filter the cars
   const filteredCars = fetchCars.filter(
