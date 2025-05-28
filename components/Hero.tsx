@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
       <div className="flex-1 pt-36 sm:px-16 px-6">
-        <h1 className="2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold">
+        <h1 className="2xl:text-[62px] sm:text-[50px] text-[40px] font-extrabold">
           Discover, reserve, or rent your ideal car effortlessly today!
         </h1>
         <p className="text-[27px] text-black-100 font-light mt-5">
@@ -31,10 +31,6 @@ const Hero = () => {
             className="object-contain"
           />
         </div>
-        <div
-          className="absolute xl:-top-24 xl:-right-1/2 -right-1/4 bg-hero-bg bg-repeat-round -z-10 w-full xl:h-screen h-[590px] overflow-hidden"
-          style={{ backgroundImage: "url('/hero-bg.png')" }}
-        />
       </div>
     </div>
   );
