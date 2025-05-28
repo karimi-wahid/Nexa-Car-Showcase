@@ -2,9 +2,10 @@
 import { CarProps } from "@/types";
 import { calculateCarRent, generateCarImageUrl } from "@/utils";
 import Image from "next/image";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import CustomButton from "./CustomButton";
 import CarDetails from "./CarDetails";
+import Loading from "./Loading";
 
 interface CarCardProps {
   car: CarProps;
@@ -69,12 +70,13 @@ const CarCard = ({ car }: CarCardProps) => {
           />
         </div>
       </div>
-
-      <CarDetails
-        isOpen={isOpen}
-        closeModal={() => setIsOpen(false)}
-        car={car}
-      />
+      <Suspense fallback={<Loading />}>
+        <CarDetails
+          isOpen={isOpen}
+          closeModal={() => setIsOpen(false)}
+          car={car}
+        />
+      </Suspense>
     </div>
   );
 };

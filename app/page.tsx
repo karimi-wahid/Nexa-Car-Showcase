@@ -4,10 +4,13 @@ import {
   Hero,
   SearchBar,
   ShowMore,
+  Loading,
 } from "@/components";
+
 import { fuels, yearsOfProduction } from "@/constant";
 import { SearchParamsProps } from "@/types";
 import { fetchCars } from "@/utils";
+import { Suspense } from "react";
 type PageProps = {
   searchParams?: SearchParamsProps;
 };
@@ -56,13 +59,15 @@ export default async function Home({ searchParams }: PageProps) {
           <section>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
               {filteredCars.slice(0, Number(limit)).map((car, i) => (
-                <CarCard car={car} key={i} />
+                <Suspense fallback={<Loading />} key={i}>
+                  <CarCard car={car} />
+                </Suspense>
               ))}
             </div>
 
             <ShowMore
-              pageNumber={(searchParams.limit || 10) / 10}
-              isNext={(searchParams.limit || 10) < filteredCars.length}
+              pageNumber={Number(limit) / 10}
+              isNext={Number(limit) < filteredCars.length}
             />
           </section>
         ) : (

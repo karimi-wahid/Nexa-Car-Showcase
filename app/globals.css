@@ -17,3 +17,8 @@
   --color-light-100: var(--light-100);
   --color-gray: var(--grey);
 }
+
+::selection {
+  background: var(--primary);
+  color: white;
+}
